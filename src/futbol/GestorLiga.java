@@ -7,10 +7,26 @@ public class GestorLiga {
     public static final String TacticaOfensiva = "Ofensivo";
     public static final String TacticaTikiTaka = "Tiki-Taka";
     // Variables globales sucias (Ideal para renombrar y encapsular)
-    public List<String> listaEquipos = new ArrayList<>(); // Nombres de los equipos
-    public List<Integer> listaPuntos = new ArrayList<>(); // Puntos en la clasificación
-    public List<Integer> listaGoles = new ArrayList<>(); // Goles a favor
-    public List<String> listaTacticas = new ArrayList<>(); // Táctica (Ofensivo, Defensivo, Tiki-Taka)
+    private List<String> listaEquipos = new ArrayList<>(); // Nombres de los equipos
+    private List<Integer> listaPuntos = new ArrayList<>(); // Puntos en la clasificación
+    private List<Integer> listaGoles = new ArrayList<>(); // Goles a favor
+    private List<String> listaTacticas = new ArrayList<>(); // Táctica (Ofensivo, Defensivo, Tiki-Taka)
+
+    public List<String> getListaEquipos() {
+        return listaEquipos;
+    }
+
+    public List<Integer> getListaPuntos() {
+        return listaPuntos;
+    }
+
+    public List<Integer> getListaGoles() {
+        return listaGoles;
+    }
+
+    public List<String> getListaTacticas() {
+        return listaTacticas;
+    }
 
     // Método 1: Registrar equipo en la liga (Nombres feos y lógica simple)
     public void registrarEquipo(String n, int pts, int gls, String tac) {
@@ -43,7 +59,7 @@ public class GestorLiga {
         System.out.println(eqLocal + " VS " + eqVisitante);
 
         // Lógica de ataque mezclada (Números mágicos 2.5, 1.2 y bonus)
-        double ataqueLocal = 2.0;
+        double ataqueLocal = calcularGoles();
         double ataqueLocal1 = 3.5;
         if (tacL.equals(TacticaOfensiva)) {
             ataqueLocal = ataqueLocal1; // Modificador táctico
@@ -60,7 +76,7 @@ public class GestorLiga {
         listaGoles.set(idLocal, golesL + golesMarcadosLocal);
 
         // Ataque del visitante
-        double ataqueVisitante = 2.0;
+        double ataqueVisitante = calcularGoles();
         if (tacV.equals("Ofensivo")) {
             ataqueVisitante = ataqueLocal1;
         } else if (tacV.equals("Tiki-Taka")) {
@@ -87,19 +103,24 @@ public class GestorLiga {
         return "Marcador Final -> " + eqLocal + " " + golesMarcadosLocal + " - " + golesMarcadosVisitante + " " + eqVisitante;
     }
 
+    private static double calcularGoles() {
+        double ataqueLocal = 2.0;
+        return ataqueLocal;
+    }
+
     // Método 3: Entrenar para mejorar goles (Variables basura e Inline)
-    public void sesionEntrenamiento(int idEquipo) {
+    public boolean esIntensivo(int idEquipo) {
         String tacticaActual = listaTacticas.get(idEquipo);
         int golesActuales = listaGoles.get(idEquipo);
 
         if (tacticaActual.equals("Ofensivo")) {
             int bonusGolesEntreno = 5; // Número mágico
-            int tempSumaGoles = golesActuales + bonusGolesEntreno;
-            listaGoles.set(idEquipo, tempSumaGoles);
+            listaGoles.set(idEquipo, golesActuales + bonusGolesEntreno);
         } else {
             int bonusPequeno = 2;
             int tempSumaGoles2 = golesActuales + bonusPequeno;
             listaGoles.set(idEquipo, tempSumaGoles2);
         }
+        return false;
     }
 }
