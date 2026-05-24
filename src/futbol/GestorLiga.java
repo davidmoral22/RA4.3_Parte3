@@ -5,10 +5,10 @@ import java.util.List;
 
 public class GestorLiga {
     // Variables globales sucias (Ideal para renombrar y encapsular)
-    public List<String> e = new ArrayList<>(); // Nombres de los equipos
-    public List<Integer> p = new ArrayList<>(); // Puntos en la clasificación
-    public List<Integer> g = new ArrayList<>(); // Goles a favor
-    public List<String> t = new ArrayList<>(); // Táctica (Ofensivo, Defensivo, Tiki-Taka)
+    public List<String> listaEquipos = new ArrayList<>(); // Nombres de los equipos
+    public List<Integer> listaPuntos = new ArrayList<>(); // Puntos en la clasificación
+    public List<Integer> listaGoles = new ArrayList<>(); // Goles a favor
+    public List<String> listaTacticas = new ArrayList<>(); // Táctica (Ofensivo, Defensivo, Tiki-Taka)
 
     // Método 1: Registrar equipo en la liga (Nombres feos y lógica simple)
     public void regEq(String n, int pts, int gls, String tac) {
@@ -19,23 +19,23 @@ public class GestorLiga {
             gls = 0;
         }
 
-        e.add(n);
-        p.add(pts);
-        g.add(gls);
-        t.add(tac);
+        listaEquipos.add(n);
+        listaPuntos.add(pts);
+        listaGoles.add(gls);
+        listaTacticas.add(tac);
         System.out.println("Equipo " + n + " inscrito correctamente en la competicion.");
     }
 
     // Método 2: El método GIGANTE del simulador del partido (Para extraer métodos y variables)
     public String jugarPartido(int idLocal, int idVisitante, boolean esDerbi) {
-        String eqLocal = e.get(idLocal);
-        String eqVisitante = e.get(idVisitante);
-        int ptsL = p.get(idLocal);
-        int ptsV = p.get(idVisitante);
-        int golesL = g.get(idLocal);
-        int golesV = g.get(idVisitante);
-        String tacL = t.get(idLocal);
-        String tacV = t.get(idVisitante);
+        String eqLocal = listaEquipos.get(idLocal);
+        String eqVisitante = listaEquipos.get(idVisitante);
+        int ptsL = listaPuntos.get(idLocal);
+        int ptsV = listaPuntos.get(idVisitante);
+        int golesL = listaGoles.get(idLocal);
+        int golesV = listaGoles.get(idVisitante);
+        String tacL = listaTacticas.get(idLocal);
+        String tacV = listaTacticas.get(idVisitante);
 
         System.out.println("--- ¡COMIENZA EL PARTIDAZO ---");
         System.out.println(eqLocal + " VS " + eqVisitante);
@@ -54,7 +54,7 @@ public class GestorLiga {
 
         // Simulación rápida de goles del local basándonos en su ataque
         int golesMarcadosLocal = (int) (ataqueLocal);
-        g.set(idLocal, golesL + golesMarcadosLocal);
+        listaGoles.set(idLocal, golesL + golesMarcadosLocal);
 
         // Ataque del visitante
         double ataqueVisitante = 2.0;
@@ -68,16 +68,16 @@ public class GestorLiga {
         if (golesMarcadosVisitante < 0) {
             golesMarcadosVisitante = 0;
         }
-        g.set(idVisitante, golesV + golesMarcadosVisitante);
+        listaGoles.set(idVisitante, golesV + golesMarcadosVisitante);
 
         // Reparto de puntos final según el resultado del partido
         if (golesMarcadosLocal > golesMarcadosVisitante) {
-            p.set(idLocal, ptsL + 3); // Victoria local
+            listaPuntos.set(idLocal, ptsL + 3); // Victoria local
         } else if (golesMarcadosLocal < golesMarcadosVisitante) {
-            p.set(idVisitante, ptsV + 3); // Victoria visitante
+            listaPuntos.set(idVisitante, ptsV + 3); // Victoria visitante
         } else {
-            p.set(idLocal, ptsL + 1); // Empate
-            p.set(idVisitante, ptsV + 1);
+            listaPuntos.set(idLocal, ptsL + 1); // Empate
+            listaPuntos.set(idVisitante, ptsV + 1);
         }
 
         // Retorna el marcador en un formato complejo
@@ -86,17 +86,17 @@ public class GestorLiga {
 
     // Método 3: Entrenar para mejorar goles (Variables basura e Inline)
     public void sesionEntrenamiento(int idEquipo) {
-        String tacticaActual = t.get(idEquipo);
-        int golesActuales = g.get(idEquipo);
+        String tacticaActual = listaTacticas.get(idEquipo);
+        int golesActuales = listaGoles.get(idEquipo);
 
         if (tacticaActual.equals("Ofensivo")) {
             int bonusGolesEntreno = 5; // Número mágico
             int tempSumaGoles = golesActuales + bonusGolesEntreno;
-            g.set(idEquipo, tempSumaGoles);
+            listaGoles.set(idEquipo, tempSumaGoles);
         } else {
             int bonusPequeno = 2;
             int tempSumaGoles2 = golesActuales + bonusPequeno;
-            g.set(idEquipo, tempSumaGoles2);
+            listaGoles.set(idEquipo, tempSumaGoles2);
         }
     }
 }
