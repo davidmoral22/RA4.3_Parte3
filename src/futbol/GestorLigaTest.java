@@ -9,22 +9,19 @@ public class GestorLigaTest {
     public void testSimulacionPartido() {
         GestorLiga liga = new GestorLiga();
 
-        // Registramos dos equipos clásicos
-        liga.regEq("Real Madrid", 0, 0, "Ofensivo");
-        liga.regEq("Barcelona", 0, 0, "Tiki-Taka");
+        // Registramos dos equipos usando el nuevo nombre del método
+        liga.registrarEquipo("Real Madrid", 0, 0, GestorLiga.TacticaOfensiva);
+        liga.registrarEquipo("Barcelona", 0, 0, GestorLiga.TacticaTikiTaka);
 
-        // Comprobamos que se guardan bien en las listas
-        assertEquals("Real Madrid", liga.listaEquipos.get(0));
-        assertEquals("Barcelona", liga.listaEquipos.get(1));
+        // Comprobamos usando los nuevos métodos Getter que generaste
+        assertEquals("Real Madrid", liga.getListaEquipos().get(0));
+        assertEquals("Barcelona", liga.getListaEquipos().get(1));
 
-        // Jugamos un partido normal (No es derbi para mantener la matemática fija)
-        // Madrid (Ofensivo = 3.5 ataque -> 3 goles). Barça (Tiki-Taka = 2.5 - 1 = 1.5 ataque -> 1 gol).
-        // Gana el Madrid 3 - 1. Debería sumar 3 puntos.
+        // Jugamos el partido (revisa si tu método jugarPartido pide los mismos parámetros)
         String resultado = liga.jugarPartido(0, 1, false);
 
-        // Validamos que el Real Madrid (id 0) ahora tiene 3 puntos en la clasificación
-        assertEquals(3, liga.listaPuntos.get(0));
-        // Validamos que el Barcelona (id 1) se queda con 0 puntos
-        assertEquals(0, liga.listaPuntos.get(1));
+        // Validamos los puntos usando los Getters
+        assertEquals(3, liga.getListaPuntos().get(0));
+        assertEquals(0, liga.getListaPuntos().get(1));
     }
 }
