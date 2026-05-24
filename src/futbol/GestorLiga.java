@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorLiga {
+    public static final String TacticaOfensiva = "Ofensivo";
+    public static final String TacticaTikiTaka = "Tiki-Taka";
     // Variables globales sucias (Ideal para renombrar y encapsular)
     public List<String> listaEquipos = new ArrayList<>(); // Nombres de los equipos
     public List<Integer> listaPuntos = new ArrayList<>(); // Puntos en la clasificación
@@ -11,7 +13,7 @@ public class GestorLiga {
     public List<String> listaTacticas = new ArrayList<>(); // Táctica (Ofensivo, Defensivo, Tiki-Taka)
 
     // Método 1: Registrar equipo en la liga (Nombres feos y lógica simple)
-    public void regEq(String n, int pts, int gls, String tac) {
+    public void registrarEquipo(String n, int pts, int gls, String tac) {
         if (pts < 0) {
             pts = 0; // No puede empezar con puntos negativos
         }
@@ -42,9 +44,10 @@ public class GestorLiga {
 
         // Lógica de ataque mezclada (Números mágicos 2.5, 1.2 y bonus)
         double ataqueLocal = 2.0;
-        if (tacL.equals("Ofensivo")) {
-            ataqueLocal = 3.5; // Modificador táctico
-        } else if (tacL.equals("Tiki-Taka")) {
+        double ataqueLocal1 = 3.5;
+        if (tacL.equals(TacticaOfensiva)) {
+            ataqueLocal = ataqueLocal1; // Modificador táctico
+        } else if (tacL.equals(TacticaTikiTaka)) {
             ataqueLocal = 2.5;
         }
 
@@ -59,7 +62,7 @@ public class GestorLiga {
         // Ataque del visitante
         double ataqueVisitante = 2.0;
         if (tacV.equals("Ofensivo")) {
-            ataqueVisitante = 3.5;
+            ataqueVisitante = ataqueLocal1;
         } else if (tacV.equals("Tiki-Taka")) {
             ataqueVisitante = 2.5;
         }
